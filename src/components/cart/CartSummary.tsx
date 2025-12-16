@@ -11,58 +11,17 @@ interface CartSummaryProps {
 
 export function CartSummary({ total, canCheckout }: CartSummaryProps) {
   const router = useRouter();
-  const { items, restaurantId, currencySymbol, clearCart } = useCart();
-  const [isProcessing, setIsProcessing] = useState(false);
+  const { items, restaurantId, currencySymbol } = useCart();
   const [error, setError] = useState<string | null>(null);
 
-  const handleCheckout = async () => {
+  const handleCheckout = () => {
     if (!restaurantId || items.length === 0) {
       setError('Cart is empty');
       return;
     }
 
-    setIsProcessing(true);
-    setError(null);
-
-    try {
-      // Prepare order data
-      const orderData = {
-        restaurantId,
-        items: items.map((item) => ({
-          menuItemId: item.menuItemId,
-          name: item.name,
-          price: item.price,
-          quantity: item.quantity,
-        })),
-      };
-
-      // Call API to create order
-      const response = await fetch('/api/orders', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(orderData),
-      });
-
-      const result = await response.json();
-
-      if (!result.success) {
-        setError(result.error.message || 'Failed to place order');
-        return;
-      }
-
-      // Clear cart on success
-      clearCart();
-
-      // Redirect to orders page
-      router.push('/orders');
-    } catch (err) {
-      console.error('Checkout error:', err);
-      setError('An error occurred during checkout. Please try again.');
-    } finally {
-      setIsProcessing(false);
-    }
+    // Redirect to checkout page
+    router.push('/checkout');
   };
 
   return (
@@ -95,10 +54,9 @@ export function CartSummary({ total, canCheckout }: CartSummaryProps) {
       {canCheckout ? (
         <button
           onClick={handleCheckout}
-          disabled={isProcessing}
-          className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition-colors"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors"
         >
-          {isProcessing ? 'Processing...' : 'Proceed to Checkout'}
+          Proceed to Checkout
         </button>
       ) : (
         <div className="space-y-2">

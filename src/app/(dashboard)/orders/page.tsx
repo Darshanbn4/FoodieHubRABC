@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { hasPermission } from '@/lib/rbac';
 import { Order } from '@/types';
@@ -9,10 +10,15 @@ import { ErrorMessage } from '@/components/ui/ErrorMessage';
 
 export default function OrdersPage() {
   const { user } = useAuth();
+  const searchParams = useSearchParams();
   const [orders, setOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [cancellingOrderId, setCancellingOrderId] = useState<string | null>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const success = searchParams.get('success');
+  const orderId = searchParams.get('orderId');
 
   const canCancelOrders = user ? hasPermission(user.role, 'cancel_order') : false;
 
@@ -116,6 +122,23 @@ export default function OrdersPage() {
   return (
     <div className="max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-6">Your Orders</h1>
+
+      {/* Success Message */}
+      {success && orderId && (
+        <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+          <div className="flex items-center">
+            <svg className="w-5 h-5 text-green-600 dark:text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            <div>
+              <h3 className="text-green-800 dark:text-green-200 font-semibold">Order Placed Successfully!</h3>
+              <p className="text-green-700 dark:text-green-300 text-sm">
+                Your order #{orderId.slice(-8)} has been placed and payment processed.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="space-y-4">
         {orders.map((order) => (
