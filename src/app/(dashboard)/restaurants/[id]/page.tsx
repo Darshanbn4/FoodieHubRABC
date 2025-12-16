@@ -32,6 +32,7 @@ export default function RestaurantDetailPage() {
     quantity: number;
     restaurantId: string;
     restaurantName: string;
+    currencySymbol: string;
   } | null>(null);
 
   const fetchRestaurantDetails = async () => {
