@@ -14,10 +14,17 @@
     "name": "Local Development"
   },
   "requests": {
-    "login": "Login",
-    "getAllRestaurants": "45c5cf36-5f2f-4867-6c4f-18479caf1573",
-    "getRestaurantById": "010d6379-74e8-0171-14c4-886b02cc37fd",
-    "getOrders": "6a3cd505-a9a1-4150-63be-8c19061d35ab",
-    "createOrder": "a4c90e11-b351-6d46-3051-610c8f23593a"
+    "login": "c0f29037-81f2-49d7-8941-80ed8c0ee353",
+    "getAllRestaurants": "5ffe4020-4b36-9588-71d6-97800ece76df",
+    "getOrders": "87a849a0-965c-22ce-cf2e-444b562f5126",
+    "createOrder": "24539b98-d7ff-d22b-adf8-c40109667a9b",
+    "getPaymentMethods": "21b18f81-0bca-2e73-6d9f-db20a2500db8"
+  },
+  "lastRun": {
+    "timestamp": "2025-12-16T09:22:00.000Z",
+    "status": "failed",
+    "totalRequests": 9,
+    "failedRequests": 9,
+    "issue": "MongoDB Atlas connection failed - IP not whitelisted"
   }
 }
