@@ -125,6 +125,7 @@ export async function POST(
           status: order.status,
           total: order.total,
           country: order.country,
+          currencySymbol: order.currencySymbol || '$',
           paymentMethodId: order.paymentMethodId,
           cancelledAt: order.cancelledAt,
           cancelReason: order.cancelReason,
