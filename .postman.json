@@ -1,0 +1,23 @@
+{
+  "workspace": {
+    "id": "e32c5ef8-c7f7-4be6-b8ff-c4716eade098",
+    "name": "FoodieHub API Testing"
+  },
+  "collection": {
+    "id": "d38cf9f4-aace-451e-905d-9b78fe01b0b7",
+    "uid": "50755203-d38cf9f4-aace-451e-905d-9b78fe01b0b7",
+    "name": "FoodieHub API"
+  },
+  "environment": {
+    "id": "9f94f84b-4dab-4975-a10c-83ad528984d9",
+    "uid": "50755203-9f94f84b-4dab-4975-a10c-83ad528984d9",
+    "name": "Local Development"
+  },
+  "requests": {
+    "login": "Login",
+    "getAllRestaurants": "45c5cf36-5f2f-4867-6c4f-18479caf1573",
+    "getRestaurantById": "010d6379-74e8-0171-14c4-886b02cc37fd",
+    "getOrders": "6a3cd505-a9a1-4150-63be-8c19061d35ab",
+    "createOrder": "a4c90e11-b351-6d46-3051-610c8f23593a"
+  }
+}
