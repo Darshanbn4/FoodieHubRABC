@@ -26,14 +26,10 @@ export default function LoginPage() {
   // Role-based redirect after login
   useEffect(() => {
     if (!isLoading && user) {
-      redirectBasedOnRole(user.role);
+      // All users go to restaurants page after login
+      router.push('/restaurants');
     }
   }, [user, isLoading, router]);
-
-  const redirectBasedOnRole = (role: string) => {
-    // All users go to restaurants page after login
-    router.push('/restaurants');
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

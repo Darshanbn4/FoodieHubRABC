@@ -12,7 +12,7 @@ export default function CartPage() {
   const { user } = useAuth();
   const router = useRouter();
 
-  const canPlaceOrder = user && hasPermission(user.role, 'place_order');
+  const canPlaceOrder = Boolean(user && hasPermission(user.role, 'place_order'));
 
   if (items.length === 0) {
     return (

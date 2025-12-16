@@ -145,6 +145,7 @@ export async function PUT(
           type: paymentMethod.type,
           lastFourDigits: paymentMethod.lastFourDigits,
           isDefault: paymentMethod.isDefault,
+          isActive: paymentMethod.isActive,
           createdAt: paymentMethod.createdAt,
           updatedAt: paymentMethod.updatedAt,
         },
