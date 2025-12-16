@@ -93,6 +93,7 @@ export interface PaymentMethod {
   type: PaymentMethodType;
   lastFourDigits: string;
   isDefault: boolean;
+  isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
 }

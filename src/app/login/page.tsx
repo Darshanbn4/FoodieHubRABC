@@ -31,16 +31,8 @@ export default function LoginPage() {
   }, [user, isLoading, router]);
 
   const redirectBasedOnRole = (role: string) => {
-    switch (role) {
-      case 'admin':
-        router.push('/settings/payments');
-        break;
-      case 'manager':
-        router.push('/orders');
-        break;
-      default:
-        router.push('/restaurants');
-    }
+    // All users go to restaurants page after login
+    router.push('/restaurants');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {

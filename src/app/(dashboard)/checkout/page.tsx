@@ -42,15 +42,20 @@ export default function CheckoutPage() {
       try {
         const response = await fetch('/api/payments');
         const result = await response.json();
+        console.log('Payment methods response:', result);
         if (result.success) {
           setPaymentMethods(result.data.filter((pm: PaymentMethod) => pm.isActive));
           // Auto-select first payment method
           if (result.data.length > 0) {
             setSelectedPaymentMethod(result.data[0]._id);
           }
+        } else {
+          console.error('Failed to fetch payment methods:', result.error);
+          setError(result.error?.message || 'Failed to load payment methods');
         }
       } catch (error) {
         console.error('Error fetching payment methods:', error);
+        setError('Failed to load payment methods');
       }
     };
 
@@ -156,7 +161,11 @@ export default function CheckoutPage() {
           {/* Payment Methods */}
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
             <h2 className="text-lg font-semibold mb-4">Payment Method</h2>
-            {paymentMethods.length === 0 ? (
+            {error ? (
+              <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                <p className="text-sm text-red-800 dark:text-red-200">{error}</p>
+              </div>
+            ) : paymentMethods.length === 0 ? (
               <p className="text-gray-600 dark:text-gray-400">Loading payment methods...</p>
             ) : (
               <div className="space-y-3">

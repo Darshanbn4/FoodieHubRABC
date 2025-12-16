@@ -40,7 +40,7 @@ export default function PaymentMethodsPage() {
       const data = await response.json();
 
       if (data.success) {
-        setPaymentMethods(data.data.paymentMethods);
+        setPaymentMethods(data.data);
       } else {
         setError(data.error.message);
       }

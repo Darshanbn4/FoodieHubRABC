@@ -12,17 +12,8 @@ export default function Home() {
   useEffect(() => {
     if (!isLoading) {
       if (user) {
-        // Redirect based on role
-        switch (user.role) {
-          case 'admin':
-            router.push('/settings/payments');
-            break;
-          case 'manager':
-            router.push('/orders');
-            break;
-          default:
-            router.push('/restaurants');
-        }
+        // All logged-in users go to restaurants page
+        router.push('/restaurants');
       } else {
         // Not logged in - go to login
         router.push('/login');

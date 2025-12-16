@@ -64,8 +64,8 @@ export async function GET(request: NextRequest) {
       updatedAt: user.updatedAt,
     };
 
-    // Check if user has permission to manage payments
-    if (!hasPermission(userWithoutPassword.role, 'manage_payments')) {
+    // Check if user has permission to view payments (for checkout) or manage payments (for admin)
+    if (!hasPermission(userWithoutPassword.role, 'place_order') && !hasPermission(userWithoutPassword.role, 'manage_payments')) {
       const response: ApiResponse<never> = {
         success: false,
         error: {
@@ -79,19 +79,18 @@ export async function GET(request: NextRequest) {
     // Fetch all payment methods
     const paymentMethods = await PaymentMethodModel.find().sort({ createdAt: -1 });
 
-    const response: ApiResponse<{ paymentMethods: PaymentMethod[] }> = {
+    const response: ApiResponse<PaymentMethod[]> = {
       success: true,
-      data: {
-        paymentMethods: paymentMethods.map((pm) => ({
-          _id: pm._id.toString(),
-          name: pm.name,
-          type: pm.type,
-          lastFourDigits: pm.lastFourDigits,
-          isDefault: pm.isDefault,
-          createdAt: pm.createdAt,
-          updatedAt: pm.updatedAt,
-        })),
-      },
+      data: paymentMethods.map((pm) => ({
+        _id: pm._id.toString(),
+        name: pm.name,
+        type: pm.type,
+        lastFourDigits: pm.lastFourDigits,
+        isDefault: pm.isDefault,
+        isActive: true, // Add isActive field for checkout filtering
+        createdAt: pm.createdAt,
+        updatedAt: pm.updatedAt,
+      })),
     };
 
     return NextResponse.json(response, { status: 200 });
